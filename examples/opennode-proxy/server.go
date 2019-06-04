@@ -45,8 +45,7 @@ func (s *Server) Run() {
 
 }
 
-func NewServer(listenAddr string) *Server {
-	router := http.NewServeMux()
+func NewServer(listenAddr string, handler http.Handler) *Server {
 	logger := log.New(os.Stdout, "http: ", log.LstdFlags)
 	logger.Println("Server is starting...")
 
@@ -57,7 +56,7 @@ func NewServer(listenAddr string) *Server {
 	return &Server{
 		http.Server{
 			Addr:     listenAddr,
-			Handler:  tracing(nextRequestID)(logging(logger)(router)),
+			Handler:  tracing(nextRequestID)(logging(logger)(handler)),
 			ErrorLog: logger,
 		},
 	}

@@ -1,3 +1,3 @@
 # Examples
 
-`cd examples && go install ./...`
+`cd examples && go run ./<example>.go`
